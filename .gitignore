@@ -1,0 +1,15 @@
+*.DS_STORE
+*.tsv
+
+# Datasets
+
+
+# macOS
+.DS_Store
+
+# Datasets
+*.tsv
+
+# macOS
+.DS_Store
+
