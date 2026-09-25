@@ -2,7 +2,7 @@
 Pipeline coordinator for the 3-step preprocessing workflow:
 1. Translate to English (local, offline argostranslate)
 2. Expand domain-specific abbreviations (field-aware: name vs address)
-3. Strip special characters (preserving word chars, whitespace, commas) & capitalize (UPPERCASE)
+3. Capitalize (UPPERCASE) while preserving special characters and formatting
 """
 from typing import Union, Dict, Any
 import pandas as pd
@@ -16,7 +16,7 @@ def preprocess_text(text: str, field_type: str = 'name') -> str:
     
     Step 1: Translate to English (offline argostranslate, fail-safe)
     Step 2: Expand abbreviations (field-specific)
-    Step 3: Strip special characters (preserving commas) & capitalize
+    Step 3: Normalize whitespace & capitalize (preserving special characters)
     """
     if not isinstance(text, str) or not text.strip():
         return ""

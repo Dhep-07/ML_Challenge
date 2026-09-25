@@ -1,1 +1,6 @@
 argostranslate
+pandas
+numpy
+scikit-learn
+jellyfish
+scipy

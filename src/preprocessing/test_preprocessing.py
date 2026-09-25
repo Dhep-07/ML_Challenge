@@ -21,11 +21,15 @@ def test_step2_abbreviations_address():
     normalized = preprocess_text(raw_addr, field_type='address')
     assert normalized == "123 MAIN ROAD APARTMENT 4B, BUILDING 2, OPPOSITE SECTOR 5"
 
-def test_step3_commas_preserved():
-    raw_addr = "Suite 100, 456 Park Ave, New York, NY"
+def test_step3_special_chars_preserved():
+    raw_addr = "Suite #100 @ 456-A Park Ave (New York), NY & Co."
     normalized = preprocess_text(raw_addr, field_type='address')
-    assert "," in normalized
-    assert normalized == "SUITE 100, 456 PARK AVENUE, NEW YORK, NY"
+    assert "#100" in normalized
+    assert "@" in normalized
+    assert "-" in normalized
+    assert "(" in normalized and ")" in normalized
+    assert "&" in normalized
+
 
 def test_dataframe_preprocessing():
     data = {
@@ -52,7 +56,8 @@ if __name__ == "__main__":
     test_step1_ascii_passthrough()
     test_step2_abbreviations_name()
     test_step2_abbreviations_address()
-    test_step3_commas_preserved()
+    test_step3_special_chars_preserved()
     test_dataframe_preprocessing()
     test_failsafe_empty_nan()
     print("All preprocessing module tests passed!")
+
