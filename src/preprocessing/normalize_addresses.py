@@ -1,18 +1,12 @@
 """
-Address normalization and feature extraction.
-Handles abbreviation expansions (e.g. Rd -> Road) and pincode/city/state extraction.
+Address normalization and feature extraction calling the 3-step preprocessing pipeline.
 """
 import re
+from src.preprocessing.pipeline import preprocess_text
 
 def normalize_address(address: str) -> str:
-    """Expands address abbreviations such as Rd -> Road, St -> Street."""
-    if not isinstance(address, str):
-        return ""
-    addr = address.lower()
-    addr = re.sub(r'\brd\b\.?', 'road', addr)
-    addr = re.sub(r'\bst\b\.?', 'street', addr)
-    addr = re.sub(r'\bave\b\.?', 'avenue', addr)
-    return re.sub(r'\s+', ' ', addr).strip()
+    """Normalizes addresses through the 3-step preprocessing pipeline."""
+    return preprocess_text(address)
 
 def extract_pincode(address: str) -> str:
     """Extracts 6-digit Indian postal code from address string."""

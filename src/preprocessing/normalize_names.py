@@ -1,13 +1,8 @@
 """
-Entity name normalization utilities.
-Includes suffix stripping and abbreviation expansion.
+Entity name normalization calling the 3-step preprocessing pipeline.
 """
-import re
+from src.preprocessing.pipeline import preprocess_text
 
 def normalize_name(name: str) -> str:
-    """Normalizes entity names by lowering, expanding abbreviations, and stripping suffixes."""
-    if not isinstance(name, str):
-        return ""
-    name = name.lower().strip()
-    name = re.sub(r'\b(pvt|ltd|inc|corp|co|llp)\b\.?', '', name)
-    return re.sub(r'\s+', ' ', name).strip()
+    """Normalizes entity names through the 3-step preprocessing pipeline."""
+    return preprocess_text(name)
